@@ -23032,8 +23032,6 @@ var Http = require('../services/httpService');
 var Config = require('../../config.json');
 var Moment = require('moment');
 
-var FutureForecast = require('./FutureForecast.jsx');
-
 var CurrentForecast = React.createClass({
   displayName: 'CurrentForecast',
 
@@ -23086,11 +23084,6 @@ var CurrentForecast = React.createClass({
         'div',
         null,
         date
-      ),
-      React.createElement(
-        'div',
-        null,
-        React.createElement(FutureForecast, { city: this.props.city })
       )
     );
   }
@@ -23098,7 +23091,7 @@ var CurrentForecast = React.createClass({
 
 module.exports = CurrentForecast;
 
-},{"../../config.json":1,"../services/httpService":166,"./FutureForecast.jsx":164,"moment":2,"react":159}],163:[function(require,module,exports){
+},{"../../config.json":1,"../services/httpService":167,"moment":2,"react":159}],163:[function(require,module,exports){
 var React = require('react');
 
 var DailyForecast = React.createClass({
@@ -23150,14 +23143,42 @@ var FutureForecast = React.createClass({
 
 module.exports = FutureForecast;
 
-},{"../../config.json":1,"../services/httpService":166,"./DailyForecast.jsx":163,"moment":2,"react":159}],165:[function(require,module,exports){
+},{"../../config.json":1,"../services/httpService":167,"./DailyForecast.jsx":163,"moment":2,"react":159}],165:[function(require,module,exports){
+var React = require('react');
+var CurrentForecast = require('./CurrentForecast.jsx');
+var FutureForecast = require('./FutureForecast.jsx');
+
+var Weather = React.createClass({
+  displayName: 'Weather',
+
+  render: function () {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'div',
+        null,
+        React.createElement(CurrentForecast, { city: this.props.city })
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(FutureForecast, { city: this.props.city })
+      )
+    );
+  }
+});
+
+module.exports = Weather;
+
+},{"./CurrentForecast.jsx":162,"./FutureForecast.jsx":164,"react":159}],166:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
-var CurrentForecast = require('./components/CurrentForecast.jsx');
+var Weather = require('./components/Weather.jsx');
 
-ReactDOM.render(React.createElement(CurrentForecast, { city: 'vancouver,ca' }), document.getElementById('app'));
+ReactDOM.render(React.createElement(Weather, { city: 'vancouver,ca' }), document.getElementById('app'));
 
-},{"./components/CurrentForecast.jsx":162,"react":159,"react-dom":3}],166:[function(require,module,exports){
+},{"./components/Weather.jsx":165,"react":159,"react-dom":3}],167:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
 var baseUrl = 'http://api.openweathermap.org/data/2.5/';
 
@@ -23171,4 +23192,4 @@ var httpService = {
 
 module.exports = httpService;
 
-},{"whatwg-fetch":161}]},{},[165]);
+},{"whatwg-fetch":161}]},{},[166]);

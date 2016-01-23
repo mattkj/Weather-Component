@@ -3,8 +3,6 @@ var Http = require('../services/httpService');
 var Config = require('../../config.json');
 var Moment = require('moment');
 
-var FutureForecast = require('./FutureForecast.jsx');
-
 var CurrentForecast = React.createClass({
 
   getInitialState: function(){
@@ -33,7 +31,6 @@ var CurrentForecast = React.createClass({
         <div>Conditions: {conditions}</div>
         <div><img src={icon} /></div>
         <div>{date}</div>
-        <div>{<FutureForecast city={this.props.city}/>}</div>
       </div>
     );
   }

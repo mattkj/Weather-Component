@@ -1,5 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var CurrentForecast = require('./components/CurrentForecast.jsx');
+var Weather = require('./components/Weather.jsx');
 
-ReactDOM.render(<CurrentForecast city="vancouver,ca" />, document.getElementById('app'));
+ReactDOM.render(<Weather city="vancouver,ca" />, document.getElementById('app'));
