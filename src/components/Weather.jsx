@@ -1,6 +1,8 @@
 var React = require('react');
 var Http = require('../services/httpService');
 var Config = require('../../config.json');
+var Moment = require('moment');
+
 var Weather = React.createClass({
 
   getInitialState: function(){
@@ -20,6 +22,7 @@ var Weather = React.createClass({
     var temp = data ? data.main.temp : '';
     var conditions = data ? data.weather[0].main : '';
     var icon = data ? imgPath + data.weather[0].icon + '.png' : '';
+    var date = data ? Moment.unix(data.dt).format("dddd, MMMM Do YYYY, h:mm:ss a") : '';
 
     return (
       <div>
@@ -27,6 +30,7 @@ var Weather = React.createClass({
         <div>Temp: {temp}&deg;c</div>
         <div>Conditions: {conditions}</div>
         <div><img src={icon} /></div>
+        <div>{date}</div>
       </div>
     );
   }
