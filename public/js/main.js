@@ -23032,8 +23032,10 @@ var Http = require('../services/httpService');
 var Config = require('../../config.json');
 var Moment = require('moment');
 
-var Weather = React.createClass({
-  displayName: 'Weather',
+var FutureForecast = require('./FutureForecast.jsx');
+
+var CurrentForecast = React.createClass({
+  displayName: 'CurrentForecast',
 
   getInitialState: function () {
     return { weatherData: null };
@@ -23084,21 +23086,78 @@ var Weather = React.createClass({
         'div',
         null,
         date
+      ),
+      React.createElement(
+        'div',
+        null,
+        React.createElement(FutureForecast, { city: this.props.city })
       )
     );
   }
 });
 
-module.exports = Weather;
+module.exports = CurrentForecast;
 
-},{"../../config.json":1,"../services/httpService":164,"moment":2,"react":159}],163:[function(require,module,exports){
+},{"../../config.json":1,"../services/httpService":166,"./FutureForecast.jsx":164,"moment":2,"react":159}],163:[function(require,module,exports){
+var React = require('react');
+
+var DailyForecast = React.createClass({
+  displayName: 'DailyForecast',
+
+  render: function () {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'h2',
+        null,
+        'daily'
+      )
+    );
+  }
+});
+
+module.exports = DailyForecast;
+
+},{"react":159}],164:[function(require,module,exports){
+var React = require('react');
+var Http = require('../services/httpService');
+var Config = require('../../config.json');
+var Moment = require('moment');
+
+var DailyForecast = require('./DailyForecast.jsx');
+
+var FutureForecast = React.createClass({
+  displayName: 'FutureForecast',
+
+  getInitialState: function () {
+    return { weatherData: null };
+  },
+  componentDidMount: function () {
+    Http.get('forecast/daily?q=' + this.props.city + '&units=metric&APPID=' + Config.key).then(function (data) {
+      this.setState({ weatherData: data });
+    }.bind(this));
+  },
+  render: function () {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement('hr', null),
+      React.createElement(DailyForecast, null)
+    );
+  }
+});
+
+module.exports = FutureForecast;
+
+},{"../../config.json":1,"../services/httpService":166,"./DailyForecast.jsx":163,"moment":2,"react":159}],165:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Weather = require('./components/Weather.jsx');
+var CurrentForecast = require('./components/CurrentForecast.jsx');
 
-ReactDOM.render(React.createElement(Weather, { city: 'vancouver,ca' }), document.getElementById('app'));
+ReactDOM.render(React.createElement(CurrentForecast, { city: 'vancouver,ca' }), document.getElementById('app'));
 
-},{"./components/Weather.jsx":162,"react":159,"react-dom":3}],164:[function(require,module,exports){
+},{"./components/CurrentForecast.jsx":162,"react":159,"react-dom":3}],166:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
 var baseUrl = 'http://api.openweathermap.org/data/2.5/';
 
@@ -23112,4 +23171,4 @@ var httpService = {
 
 module.exports = httpService;
 
-},{"whatwg-fetch":161}]},{},[163]);
+},{"whatwg-fetch":161}]},{},[165]);
