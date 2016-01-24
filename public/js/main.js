@@ -23052,39 +23052,40 @@ var CurrentForecast = React.createClass({
     var temp = data ? Math.round(data.main.temp) : '';
     var conditions = data ? data.weather[0].main : '';
     var icon = data ? Config.imgPath + data.weather[0].icon + '.png' : '';
-    var date = data ? Moment.unix(data.dt).format("dddd, MMMM Do YYYY, h:mm:ss a") : '';
+    var date = data ? Moment.unix(data.dt).format("ddd, h:mm a") : '';
 
     return React.createElement(
       'div',
-      null,
+      { className: 'list-group-item' },
       React.createElement(
         'div',
         null,
-        'City: ',
-        city
+        React.createElement(
+          'div',
+          { className: 'city' },
+          city
+        ),
+        React.createElement(
+          'div',
+          { className: 'date' },
+          date
+        )
       ),
       React.createElement(
         'div',
-        null,
-        'Temp: ',
+        { className: 'icon' },
+        React.createElement('img', { src: icon })
+      ),
+      React.createElement(
+        'div',
+        { className: 'temp' },
         temp,
         '°c'
       ),
       React.createElement(
         'div',
-        null,
-        'Conditions: ',
+        { className: 'conditions' },
         conditions
-      ),
-      React.createElement(
-        'div',
-        null,
-        React.createElement('img', { src: icon })
-      ),
-      React.createElement(
-        'div',
-        null,
-        date
       )
     );
   }
@@ -23108,22 +23109,53 @@ var DailyForecast = React.createClass({
 
     return React.createElement(
       'div',
-      null,
+      { className: 'list-group-item' },
       React.createElement(
         'div',
-        null,
-        date,
-        React.createElement('img', { src: icon }),
-        ' ',
-        max,
-        '°c / ',
-        min,
-        '°c'
-      ),
-      React.createElement(
-        'div',
-        null,
-        this.props.conditions
+        { className: 'row' },
+        React.createElement(
+          'div',
+          { className: 'col-xs-4' },
+          React.createElement(
+            'div',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              date
+            )
+          ),
+          React.createElement(
+            'div',
+            null,
+            this.props.conditions
+          )
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-xs-4 text-center' },
+          React.createElement('img', { src: icon, width: '40px' })
+        ),
+        React.createElement(
+          'div',
+          { className: 'col-xs-4 text-right' },
+          React.createElement(
+            'div',
+            null,
+            React.createElement(
+              'strong',
+              null,
+              max,
+              '°c'
+            )
+          ),
+          React.createElement(
+            'div',
+            null,
+            min,
+            '°c'
+          )
+        )
       )
     );
   }
@@ -23156,7 +23188,6 @@ var FutureForecast = React.createClass({
 
     if (data) {
       days = data.list.slice(1, 5).map(function (item) {
-        console.log(item);
         return React.createElement(DailyForecast, { key: item.dt, date: item.dt, icon: item.weather[0].icon,
           conditions: item.weather[0].main, min: item.temp.min, max: item.temp.max });
       });
@@ -23181,18 +23212,23 @@ var Weather = React.createClass({
   displayName: 'Weather',
 
   render: function () {
+
+    var background = { background: '#333' };
+    if (this.props.background) {
+      background = { background: this.props.background };
+    }
+
     return React.createElement(
       'div',
       null,
       React.createElement(
         'div',
-        null,
+        { className: 'current-forecast list-group', style: background },
         React.createElement(CurrentForecast, { city: this.props.city })
       ),
-      React.createElement('hr', null),
       React.createElement(
         'div',
-        null,
+        { className: 'future-forecast  list-group' },
         React.createElement(FutureForecast, { city: this.props.city })
       )
     );
@@ -23206,7 +23242,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Weather = require('./components/Weather.jsx');
 
-ReactDOM.render(React.createElement(Weather, { city: 'tokyo' }), document.getElementById('app'));
+ReactDOM.render(React.createElement(Weather, { city: 'vancouver', background: '#79B8AF' }), document.getElementById('city1'));
+ReactDOM.render(React.createElement(Weather, { city: 'auckland' }), document.getElementById('city2'));
 
 },{"./components/Weather.jsx":165,"react":159,"react-dom":3}],167:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');

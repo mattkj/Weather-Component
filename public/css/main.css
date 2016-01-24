@@ -1,0 +1,55 @@
+.container{
+  margin-top: 15px;
+}
+
+.current-forecast{
+  color: #FFF;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.current-forecast.list-group{
+  margin-bottom: 0;
+}
+
+.current-forecast .list-group-item{
+  border: none;
+  background: transparent;
+}
+
+.city{
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.date{
+  font-size: 85%;
+}
+
+.icon, .temp, .conditions{
+  text-align: center;
+}
+
+.icon img{
+  border: 2px solid #FFF;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  padding: 10px;
+}
+
+.temp{
+  font-size: 4em;
+}
+
+.conditions{
+  font-size: 2em;
+}
+
+.future-forecast{
+  background: #F5F5F5;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.future-forecast .list-group-item:nth-child(2n){
+  background: #ebebeb;
+}

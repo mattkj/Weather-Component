@@ -4,11 +4,20 @@ var FutureForecast = require('./FutureForecast.jsx');
 
 var Weather = React.createClass({
   render: function(){
+
+    var background = {background: '#333'};
+    if (this.props.background){
+      background = {background: this.props.background};
+    }
+
     return (
       <div>
-        <div>{<CurrentForecast city={this.props.city}/>}</div>
-        <hr />
-        <div>{<FutureForecast city={this.props.city}/>}</div>
+        <div className="current-forecast list-group" style={background}>
+          {<CurrentForecast city={this.props.city}/>}
+        </div>
+        <div className="future-forecast  list-group">
+          {<FutureForecast city={this.props.city}/>}
+        </div>
       </div>
     );
   }
