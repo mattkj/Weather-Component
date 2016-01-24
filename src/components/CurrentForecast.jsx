@@ -16,12 +16,11 @@ var CurrentForecast = React.createClass({
   },
   render: function(){
     var data = this.state.weatherData;
-    var imgPath = 'http://openweathermap.org/img/w/';
 
     var city = data ? data.name : '';
     var temp = data ? Math.round(data.main.temp) : '';
     var conditions = data ? data.weather[0].main : '';
-    var icon = data ? imgPath + data.weather[0].icon + '.png' : '';
+    var icon = data ? Config.imgPath + data.weather[0].icon + '.png' : '';
     var date = data ? Moment.unix(data.dt).format("dddd, MMMM Do YYYY, h:mm:ss a") : '';
 
     return (

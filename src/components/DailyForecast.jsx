@@ -1,11 +1,11 @@
 var React = require('react');
 var Moment = require('moment');
+var Config = require('../../config.json');
 
 var DailyForecast = React.createClass({
   render: function(){
     var date = Moment.unix(this.props.date).format("dddd");
-    var imgPath = 'http://openweathermap.org/img/w/';
-    var icon = imgPath + this.props.icon + '.png';
+    var icon = Config.imgPath + this.props.icon + '.png';
     var min = Math.round(this.props.min);
     var max = Math.round(this.props.max);
 

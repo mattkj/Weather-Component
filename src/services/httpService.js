@@ -1,5 +1,6 @@
 var Fetch = require('whatwg-fetch');
-var baseUrl = 'http://api.openweathermap.org/data/2.5/';
+var Config = require('../../config.json');
+var baseUrl = Config.baseUrl;
 
 var httpService = {
   get: function(url){

@@ -1,6 +1,8 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports=module.exports = {
-  "key": "3a58184b0f6935d36a162c8c3064e90f" 
+  "key": "3a58184b0f6935d36a162c8c3064e90f",
+  "baseUrl": "http://api.openweathermap.org/data/2.5/",
+  "imgPath": "http://openweathermap.org/img/w/"
 };
 },{}],2:[function(require,module,exports){
 //! moment.js
@@ -23045,12 +23047,11 @@ var CurrentForecast = React.createClass({
   },
   render: function () {
     var data = this.state.weatherData;
-    var imgPath = 'http://openweathermap.org/img/w/';
 
     var city = data ? data.name : '';
     var temp = data ? Math.round(data.main.temp) : '';
     var conditions = data ? data.weather[0].main : '';
-    var icon = data ? imgPath + data.weather[0].icon + '.png' : '';
+    var icon = data ? Config.imgPath + data.weather[0].icon + '.png' : '';
     var date = data ? Moment.unix(data.dt).format("dddd, MMMM Do YYYY, h:mm:ss a") : '';
 
     return React.createElement(
@@ -23094,14 +23095,14 @@ module.exports = CurrentForecast;
 },{"../../config.json":1,"../services/httpService":167,"moment":2,"react":159}],163:[function(require,module,exports){
 var React = require('react');
 var Moment = require('moment');
+var Config = require('../../config.json');
 
 var DailyForecast = React.createClass({
   displayName: 'DailyForecast',
 
   render: function () {
     var date = Moment.unix(this.props.date).format("dddd");
-    var imgPath = 'http://openweathermap.org/img/w/';
-    var icon = imgPath + this.props.icon + '.png';
+    var icon = Config.imgPath + this.props.icon + '.png';
     var min = Math.round(this.props.min);
     var max = Math.round(this.props.max);
 
@@ -23130,7 +23131,7 @@ var DailyForecast = React.createClass({
 
 module.exports = DailyForecast;
 
-},{"moment":2,"react":159}],164:[function(require,module,exports){
+},{"../../config.json":1,"moment":2,"react":159}],164:[function(require,module,exports){
 var React = require('react');
 var Http = require('../services/httpService');
 var Config = require('../../config.json');
@@ -23209,7 +23210,8 @@ ReactDOM.render(React.createElement(Weather, { city: 'tokyo' }), document.getEle
 
 },{"./components/Weather.jsx":165,"react":159,"react-dom":3}],167:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
-var baseUrl = 'http://api.openweathermap.org/data/2.5/';
+var Config = require('../../config.json');
+var baseUrl = Config.baseUrl;
 
 var httpService = {
   get: function (url) {
@@ -23221,4 +23223,4 @@ var httpService = {
 
 module.exports = httpService;
 
-},{"whatwg-fetch":161}]},{},[166]);
+},{"../../config.json":1,"whatwg-fetch":161}]},{},[166]);
