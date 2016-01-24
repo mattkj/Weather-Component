@@ -12,7 +12,7 @@ var Weather = React.createClass({
         <div className="current-forecast list-group" style={background}>
           {<CurrentForecast city={this.props.city}/>}
         </div>
-        <div className="future-forecast  list-group">
+        <div className="future-forecast list-group">
           {<FutureForecast city={this.props.city}/>}
         </div>
       </div>

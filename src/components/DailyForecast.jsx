@@ -12,17 +12,17 @@ var DailyForecast = React.createClass({
     return (
       <div className="list-group-item">
         <div className="row">
-        <div className="col-xs-4">
-          <div><strong>{date}</strong></div>
-          <div>{this.props.conditions}</div>
-        </div>
-        <div className="col-xs-4 text-center">
-          <img src={icon} width="40px" />
-        </div>
-        <div className="col-xs-4 text-right">
-          <div><strong>{max}&deg;c</strong></div>
-          <div>{min}&deg;c</div>
-        </div>
+          <div className="col-xs-4">
+            <div><strong>{date}</strong></div>
+            <div>{this.props.conditions}</div>
+          </div>
+          <div className="col-xs-4 text-center">
+            <img src={icon} width="40px" />
+          </div>
+          <div className="col-xs-4 text-right">
+            <div><strong>{max}&deg;c</strong></div>
+            <div>{min}&deg;c</div>
+          </div>
         </div>
       </div>
     );

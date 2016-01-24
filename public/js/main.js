@@ -23225,7 +23225,7 @@ var Weather = React.createClass({
       ),
       React.createElement(
         'div',
-        { className: 'future-forecast  list-group' },
+        { className: 'future-forecast list-group' },
         React.createElement(FutureForecast, { city: this.props.city })
       )
     );
