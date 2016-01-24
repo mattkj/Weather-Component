@@ -1,0 +1,5 @@
+module.exports = {
+  "key": "your-api-key-here",
+  "baseUrl": "http://api.openweathermap.org/data/2.5/",
+  "imgPath": "http://openweathermap.org/img/w/"
+};
