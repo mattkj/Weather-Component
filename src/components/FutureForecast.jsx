@@ -17,10 +17,22 @@ var FutureForecast = React.createClass({
     }.bind(this));
   },
   render: function(){
+    var data = this.state.weatherData;
+    var days = [];
+
+    if (data){
+      days = data.list.slice(1, 5).map(function(item){
+        console.log(item);
+        return (
+          <DailyForecast key={item.dt} date={item.dt} icon={item.weather[0].icon} 
+                         conditions={item.weather[0].main} min={item.temp.min} max={item.temp.max} />
+          );
+      })
+    };
+
     return (
       <div>
-        <hr />
-        <DailyForecast />
+        {days}
       </div>
     );
   }

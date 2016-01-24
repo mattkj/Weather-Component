@@ -7,6 +7,7 @@ var Weather = React.createClass({
     return (
       <div>
         <div>{<CurrentForecast city={this.props.city}/>}</div>
+        <hr />
         <div>{<FutureForecast city={this.props.city}/>}</div>
       </div>
     );

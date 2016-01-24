@@ -1,10 +1,18 @@
 var React = require('react');
+var Moment = require('moment');
 
 var DailyForecast = React.createClass({
   render: function(){
+    var date = Moment.unix(this.props.date).format("dddd");
+    var imgPath = 'http://openweathermap.org/img/w/';
+    var icon = imgPath + this.props.icon + '.png';
+    var min = Math.round(this.props.min);
+    var max = Math.round(this.props.max);
+
     return (
       <div>
-        <h2>daily</h2>
+        <div>{date}<img src={icon} /> {max}&deg;c / {min}&deg;c</div>
+        <div>{this.props.conditions}</div>
       </div>
     );
   }

@@ -23048,7 +23048,7 @@ var CurrentForecast = React.createClass({
     var imgPath = 'http://openweathermap.org/img/w/';
 
     var city = data ? data.name : '';
-    var temp = data ? data.main.temp : '';
+    var temp = data ? Math.round(data.main.temp) : '';
     var conditions = data ? data.weather[0].main : '';
     var icon = data ? imgPath + data.weather[0].icon + '.png' : '';
     var date = data ? Moment.unix(data.dt).format("dddd, MMMM Do YYYY, h:mm:ss a") : '';
@@ -23093,18 +23093,36 @@ module.exports = CurrentForecast;
 
 },{"../../config.json":1,"../services/httpService":167,"moment":2,"react":159}],163:[function(require,module,exports){
 var React = require('react');
+var Moment = require('moment');
 
 var DailyForecast = React.createClass({
   displayName: 'DailyForecast',
 
   render: function () {
+    var date = Moment.unix(this.props.date).format("dddd");
+    var imgPath = 'http://openweathermap.org/img/w/';
+    var icon = imgPath + this.props.icon + '.png';
+    var min = Math.round(this.props.min);
+    var max = Math.round(this.props.max);
+
     return React.createElement(
       'div',
       null,
       React.createElement(
-        'h2',
+        'div',
         null,
-        'daily'
+        date,
+        React.createElement('img', { src: icon }),
+        ' ',
+        max,
+        '°c / ',
+        min,
+        '°c'
+      ),
+      React.createElement(
+        'div',
+        null,
+        this.props.conditions
       )
     );
   }
@@ -23112,7 +23130,7 @@ var DailyForecast = React.createClass({
 
 module.exports = DailyForecast;
 
-},{"react":159}],164:[function(require,module,exports){
+},{"moment":2,"react":159}],164:[function(require,module,exports){
 var React = require('react');
 var Http = require('../services/httpService');
 var Config = require('../../config.json');
@@ -23132,11 +23150,21 @@ var FutureForecast = React.createClass({
     }.bind(this));
   },
   render: function () {
+    var data = this.state.weatherData;
+    var days = [];
+
+    if (data) {
+      days = data.list.slice(1, 5).map(function (item) {
+        console.log(item);
+        return React.createElement(DailyForecast, { key: item.dt, date: item.dt, icon: item.weather[0].icon,
+          conditions: item.weather[0].main, min: item.temp.min, max: item.temp.max });
+      });
+    };
+
     return React.createElement(
       'div',
       null,
-      React.createElement('hr', null),
-      React.createElement(DailyForecast, null)
+      days
     );
   }
 });
@@ -23160,6 +23188,7 @@ var Weather = React.createClass({
         null,
         React.createElement(CurrentForecast, { city: this.props.city })
       ),
+      React.createElement('hr', null),
       React.createElement(
         'div',
         null,
@@ -23176,7 +23205,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var Weather = require('./components/Weather.jsx');
 
-ReactDOM.render(React.createElement(Weather, { city: 'vancouver,ca' }), document.getElementById('app'));
+ReactDOM.render(React.createElement(Weather, { city: 'tokyo' }), document.getElementById('app'));
 
 },{"./components/Weather.jsx":165,"react":159,"react-dom":3}],167:[function(require,module,exports){
 var Fetch = require('whatwg-fetch');
