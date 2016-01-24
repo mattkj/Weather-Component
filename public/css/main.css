@@ -3,6 +3,7 @@
 }
 
 .current-forecast{
+  background: #333;
   color: #FFF;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

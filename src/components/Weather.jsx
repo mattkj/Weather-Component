@@ -5,10 +5,7 @@ var FutureForecast = require('./FutureForecast.jsx');
 var Weather = React.createClass({
   render: function(){
 
-    var background = {background: '#333'};
-    if (this.props.background){
-      background = {background: this.props.background};
-    }
+    var background = {background: this.props.background};
 
     return (
       <div>
